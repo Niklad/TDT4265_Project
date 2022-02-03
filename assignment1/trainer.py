@@ -72,6 +72,9 @@ class BaseTrainer:
             accuracy={}
         )
 
+        best_val_loss = np.inf
+        iterator = 0
+
         global_step = 0
         for epoch in range(num_epochs):
             train_loader = utils.batch_loader(
@@ -90,5 +93,23 @@ class BaseTrainer:
 
                     # TODO (Task 2d): Implement early stopping here.
                     # You can access the validation loss in val_history["loss"]
+                    
+                    # if val_loss <= best_val_loss:
+                    #     best_val_loss = val_loss
+                    #     iterator = 0
+                    # else:
+                    #     iterator += 1
+                    
+                    # if iterator == 10:
+                    #     return train_history, val_history
+
+                    
+                    if np.min(val_history['loss']) in val_history['loss'][-10:]:
+                        return train_history, val_history
+                        
+
+
+
+
                 global_step += 1
         return train_history, val_history
