@@ -106,10 +106,6 @@ class BaseTrainer:
                     
                     if np.min(val_history['loss']) in val_history['loss'][-10:]:
                         return train_history, val_history
-                        
-
-
-
 
                 global_step += 1
         return train_history, val_history
