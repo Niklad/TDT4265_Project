@@ -92,6 +92,7 @@ class BinaryModel:
         
         self.grad = np.dot(X.T, -(y - yhat)) / X.shape[0]
 
+
     def zero_grad(self) -> None:
         self.grad = None
 

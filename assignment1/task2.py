@@ -41,14 +41,14 @@ class LogisticTrainer(BaseTrainer):
         """
         # TODO: Implement this function (task 2b)
 
-        self.model.w -= self.learning_rate * self.model.grad
         
         outputs = self.model.forward(X_batch) # forward(self, X: np.ndarray) -> np.ndarray:
         self.model.backward(X_batch, outputs, Y_batch) # backward(self, X: np.ndarray, outputs: np.ndarray, targets: np.ndarray) -> None:
 
+        self.model.w -= self.learning_rate * self.model.grad
+
         loss = cross_entropy_loss(Y_batch, outputs)
 
-        loss = 0
         return loss
 
     def validation_step(self):

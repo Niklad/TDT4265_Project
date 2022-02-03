@@ -94,18 +94,18 @@ class BaseTrainer:
                     # TODO (Task 2d): Implement early stopping here.
                     # You can access the validation loss in val_history["loss"]
                     
-                    # if val_loss <= best_val_loss:
-                    #     best_val_loss = val_loss
-                    #     iterator = 0
-                    # else:
-                    #     iterator += 1
+                    if val_loss <= best_val_loss:
+                        best_val_loss = val_loss
+                        iterator = 0
+                    else:
+                        iterator += 1
                     
-                    # if iterator == 10:
-                    #     return train_history, val_history
+                    if iterator == 10:
+                        return train_history, val_history
 
                     
-                    if np.min(val_history['loss']) in val_history['loss'][-10:]:
-                        return train_history, val_history
+                    # if np.min(val_history['loss'].value) not in val_history['loss'][-10:]:
+                    #    return train_history, val_history
 
                 global_step += 1
         return train_history, val_history
