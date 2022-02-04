@@ -45,6 +45,7 @@ class SoftmaxModel:
         """
         # TODO implement this function (Task 3a)
 
+        
         y_hat = np.exp(X.dot(self.w)) / np.sum(np.exp(X.dot(self.w)), axis = 1)[:, None]
 
         return y_hat
@@ -59,19 +60,24 @@ class SoftmaxModel:
             outputs: outputs of model of shape: [batch size, num_outputs]
             targets: labels/targets of each image of shape: [batch size, num_classes]
         """
-        # TODO implement this function (Task 3a)
-
-        # self.grad = -X @ (outputs - targets) / X.shape[0]
-        self.grad = np.dot(X.T, -(targets - outputs)) / X.shape[0]
+        # TODO implement this function (Task 3a) 
 
         # To implement L2 regularization task (4b) you can get the lambda value in self.l2_reg_lambda 
-        # which is defined in the constructor.
+        # which is defined in the constructor.  
+
         assert targets.shape == outputs.shape,\
             f"Output shape: {outputs.shape}, targets: {targets.shape}"
         self.grad = np.zeros_like(self.w)
         assert self.grad.shape == self.w.shape,\
              f"Grad shape: {self.grad.shape}, w: {self.w.shape}"
         
+        # self.grad = np.dot(-X.T, (targets - outputs)) / X.shape[0] # Task 3a
+
+        self.grad = (np.dot(X.T, -(targets - outputs)) + self.l2_reg_lambda * self.w)/ X.shape[0] # Task 4
+
+        # grads = (np.dot(-X.T, (targets - outputs)) + 2*self.l2_reg_lambda*self.w) #this term is due to l2 reg
+                
+        # self.grad = grads/X.shape[0]   #Averaging all gradients
 
     def zero_grad(self) -> None:
         self.grad = None
